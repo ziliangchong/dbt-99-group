@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: ninetynine
+    schema: sg_prod
+    tables:
+      - name: subscriptions
+      - name: credit_bundles
+      - name: credit_ledgers

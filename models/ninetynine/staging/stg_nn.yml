@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: stg_nn__subscriptions
+    description: All records of agent subscriptions, including expired and current.
+    columns:
+      - name: agent_number
+        description: CEA number of agent, join to agent.agent_number in users table or agent_number in other tables.
+        tests:
+          - not_null
+      - name: plan_id
+        description: Name of subscription plan. Ultimate/elite/performer/etc.
+      - name: plan_starting_date
+        description: Date that subscription plan comes into effect.
+      - name: plan_expiry_date
+        description: Date that subscription plan expires.
+      - name: status
+        description: Status of subscription plan.
+
+
+  - name: stg_nn__credit_bundles
+    description: All records of credit_bundles, including current and expired. Usually combined with credit_ledgers to generate wallet view.
+    columns:
+      - name: bundle_id
+        description: Unique identifier for bundle. Joins to `credit_bundle_id` in credit_ledgers table.
+        tests:
+          - not_null
+      - name: bundle_price
+        description: Price paid by agent for bundle.
+      - name: agent_number
+        description: CEA number of agent, join to agent.agent_number in users table or agent_number in other tables.
+      - name: bundle_starting_date
+        description: Date that bundle comes into effect.
+      - name: bundle_expiry_date
+        description: Date that bundle expires.
+      - name: status
+        description: Status of bundle.
+
+
+  - name: stg_nn__credit_ledgers
+    description: All records of credit movements, whethere debit or credit and from which bundle.
+    columns:
+      - name: credit_bundle_id
+        description: Unique identifier for bundle. Joins to `bundle_id` in credit_bundles table.
+        tests:
+          - not_null
+      - name: credit_amount
+        description: Number of credits credited or debited
+      - name: ledger_action
+        description: Whether it was addition or deduction of credits.
