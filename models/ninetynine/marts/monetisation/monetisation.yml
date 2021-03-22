@@ -1,0 +1,69 @@
+version: 2
+
+models:
+  - name: current_subscriptions
+    description: All subscriptions that are current actively, meaning has started taking effect and not yet expired.
+    columns:
+      - name: agent_number
+        description: CEA number of agent, join to agent.agent_number in users table or agent_number in other tables.
+        tests:
+          - not_null
+      - name: plan_id
+        description: Name of subscription plan. Ultimate/elite/performer/etc.
+      - name: plan_starting_date
+        description: Date that subscription plan comes into effect.
+      - name: plan_expiry_date
+        description: Date that subscription plan expires.
+
+
+  - name: credit_wallet
+    description: Essentially an agent's wallet, with how much free credits given, how much paid credits bought, how much spent from each pool, how much remaining in each pool, and total remaining. Only counts unexpired credit and credit spending.
+    columns:
+      - name: agent_number
+        description: CEA number of agent, join to agent.agent_number in users table or agent_number in other tables.
+        tests:
+          - unique
+          - not_null
+      - name: free_credits
+        description: How much unexpired free credits the agent has been given.
+      - name: paid_credits
+        description: How much unexpired paid credits the agent has bought.
+      - name: free_credits_spent
+        description: How much unexpired free credits the agent has spent.
+      - name: paid_credits_spent
+        description: How much unexpired paid credits the agent has spent.
+      - name: free_credits_remaining
+        description: How much unexpired free credits the agent has remaining.
+      - name: paid_credits_remaining
+        description: How much unexpired paid credits the agent has remaining.
+      - name: total_credits_remaining
+        description: How much total unexpired credits the agent has remaining.
+
+
+  - name: subscriptions_and_credits
+    description: Combination of agent's subscription plan details and credit wallet balance.
+    columns:
+      - name: agent_number
+        description: CEA number of agent, join to agent.agent_number in users table or agent_number in other tables.
+        tests:
+          - not_null
+      - name: plan_id
+        description: Name of subscription plan. Ultimate/elite/performer/etc.
+      - name: plan_starting_date
+        description: Date that subscription plan comes into effect.
+      - name: plan_expiry_date
+        description: Date that subscription plan expires.
+      - name: free_credits
+        description: How much unexpired free credits the agent has been given.
+      - name: paid_credits
+        description: How much unexpired paid credits the agent has bought.
+      - name: free_credits_spent
+        description: How much unexpired free credits the agent has spent.
+      - name: paid_credits_spent
+        description: How much unexpired paid credits the agent has spent.
+      - name: free_credits_remaining
+        description: How much unexpired free credits the agent has remaining.
+      - name: paid_credits_remaining
+        description: How much unexpired paid credits the agent has remaining.
+      - name: total_credits_remaining
+        description: How much total unexpired credits the agent has remaining.
